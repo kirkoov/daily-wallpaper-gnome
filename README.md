@@ -25,6 +25,7 @@ A lightweight Bash utility that automatically changes the GNOME desktop wallpape
 ## Installation
 
 See [install/INSTALL.md](install/INSTALL.md) for detailed installation and configuration instructions.
+The instructions have been tested on a clean system using only the steps documented.
 
 ## Usage
 
@@ -57,7 +58,7 @@ daily-wallpaper-gnome/
 
 This utility was created to solve a practical problem: changing the GNOME desktop wallpaper automatically every day on a laptop, including after missed boot times, while ensuring that images are not repeated until the entire collection has been displayed.
 
-It demonstrates practical Bash scripting, Linux automation with anacron and systemd, state management, and interaction with with the GNOME desktop via `gsettings`.
+It demonstrates practical Bash scripting, Linux automation, persistent state management, and interaction with GNOME via `gsettings`.
 
 ## Licence
 
