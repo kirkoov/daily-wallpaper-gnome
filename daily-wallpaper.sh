@@ -9,10 +9,10 @@ CYCLE_FILE="$STATE_DIR/cycle-number.txt"
 
 mkdir -p "$STATE_DIR"
 
-# Required when launched outside the desktop session
+# Needed when run from cron under GNOME
 export DISPLAY="${DISPLAY:-:0}"
-# export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=/run/user/$(id -u)/bus}"
-export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus"
+DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u)/bus"
+export DBUS_SESSION_BUS_ADDRESS
 
 # Start cycle number if missing
 if [ ! -f "$CYCLE_FILE" ]; then
@@ -60,7 +60,7 @@ if [ -z "$UNSHOWN" ]; then
 	UNSHOWN="$ALL_IMAGES"
 fi
 
-# Pick random image from unshown list
+# Pick a random image from unshown list
 IMAGE="$(printf '%s\n' "$UNSHOWN" | shuf -n 1)"
 
 BASENAME="$(basename "$IMAGE")"
@@ -101,7 +101,3 @@ echo "$(date '+%F %T') | cycle=$CYCLE | OK | $BASENAME | $IMAGE" >>"$LOG_FILE"
 if command -v notify-send >/dev/null 2>&1; then
 	notify-send "Wallpaper changed" "$BASENAME" || true
 fi
-
-# To reset everything and start the uniqueness cycle from scratch:
-# rm ~/.local/share/daily-wallpaper/wallpaper-history.log
-# rm ~/.local/share/daily-wallpaper/cycle-number.txt

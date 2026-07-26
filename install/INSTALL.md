@@ -73,3 +73,4 @@ If the wallpaper does not change automatically, verify that:
 - the wrapper script points to the correct location of `daily-wallpaper.sh`
 - `DISPLAY` and `DBUS_SESSION_BUS_ADDRESS` are correctly configured
 - the scripts are executable (`chmod +x`)
+- to reset everything and start the uniqueness cycle from scratch, run: `rm ~/.local/share/daily-wallpaper/wallpaper-history.log` and `rm ~/.local/share/daily-wallpaper/cycle-number.txt`

@@ -4,6 +4,7 @@ A lightweight Bash utility that automatically changes the GNOME desktop wallpape
 
 ## Features
 
+- the script respects your existing GNOME wallpaper scaling mode
 - randomly selects an unseen image without repeats until all images have been shown
 - automatically starts a new cycle afterwards
 - designed to run daily via anacron

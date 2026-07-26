@@ -3,4 +3,4 @@
 export DISPLAY=:0
 export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
 
-sudo -H -u kk /home/kk/my_sh_scripts/daily-wallpaper.sh
+sudo -H -u username /home/kk/my_sh_scripts/daily-wallpaper.sh # Replace username with yours
