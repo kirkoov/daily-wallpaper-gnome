@@ -25,7 +25,7 @@ A lightweight Bash utility that automatically changes the GNOME desktop wallpape
 ## Installation
 
 See [install/INSTALL.md](install/INSTALL.md) for detailed installation and configuration instructions.
-The instructions have been tested on a clean system using only the steps documented.
+The instructions have been cleanly tested on Ubuntu 22.04 using only the steps documented.
 
 ## Usage
 

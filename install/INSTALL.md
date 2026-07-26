@@ -17,7 +17,7 @@
 
 ## 2. Install the scripts
 
-- copy `daily-wallpaper.sh` and `daily-wallpaper-anacron` to `/usr/local/bin/`
+- Copy `daily-wallpaper.sh` and `daily-wallpaper-anacron` to `/usr/local/bin/`
 
 - and make both scripts executable:
 
@@ -28,7 +28,7 @@
 
 ## 3. Configure the wallpaper directory
 
-Edit `daily-wallpaper.sh` and set:
+Edit `/usr/local/bin/daily-wallpaper.sh` and set the wallpaper directory:
 
    ```bash
    WALLPAPER_DIR="$HOME/Pictures/DesktopBackgrounds/"
@@ -36,12 +36,18 @@ Edit `daily-wallpaper.sh` and set:
 
 ## 4. Install the anacron job
 
-Copy the `daily-wallpaper` job from `install/anacrontab.example` into `/etc/anacrontab`.
+Copy the contents of `install/anacrontab.example` into `/etc/anacrontab`.
 
 ## 5. Enable anacron on battery (optional)
 
 On laptops, anacron does not run on battery by default.
-Copy `install/on-ac.conf` to `/etc/systemd/system/anacron.service.d/`.
+
+Create the override directory:
+
+```bash
+   sudo mkdir -p /etc/systemd/system/anacron.service.d
+   sudo cp install/on-ac.conf /etc/systemd/system/anacron.service.d/
+```
 
 Then
 
@@ -52,13 +58,16 @@ sudo systemctl restart anacron.timer
 
 ## 6. Test the installation
 
+Verify the script:
+
 ```bash
 sudo /usr/local/bin/daily-wallpaper-anacron
 gsettings get org.gnome.desktop.background picture-uri
 gsettings get org.gnome.desktop.background picture-uri-dark
-journalctl -u anacron.service --since today | grep daily-wallpaper
 
 ```
+
+Verify that Anacron is running correctly: `journalctl -u anacron.service -n 20` or `journalctl -u anacron.service --since today | grep daily-wallpaper`
 
 ## Troubleshooting
 
@@ -68,7 +77,7 @@ If the wallpaper does not change automatically, verify that:
 - `anacron` is installed and enabled
 - the wrapper script points to the correct location of `daily-wallpaper.sh`
 - `DISPLAY` and `DBUS_SESSION_BUS_ADDRESS` are correctly configured
-- the scripts are executable (`chmod +x`)
+- both scripts are executable (`chmod +x /usr/local/bin/daily-wallpaper*`)
 - to reset everything and start the uniqueness cycle from scratch, run:
 
    ```bash
@@ -87,7 +96,4 @@ sudo rm -rf /etc/systemd/system/anacron.service.d
 sudo systemctl daemon-reload
    ```
 
-```text
-NB! This does not remove the wallpaper history stored in
-~/.local/share/daily-wallpaper/.
-```
+`NB! This does not remove the wallpaper history stored in ~/.local/share/daily-wallpaper/.`
