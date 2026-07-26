@@ -40,7 +40,7 @@ Edit `daily-wallpaper.sh` and set:
 
 ## 4. Install the anacron job
 
-Copy the `daily-wallpaper` job from `install/anacrontab.example` into `/etc/anacrontab`, then reload or restart the Anacron service if required.
+Copy the `daily-wallpaper` job from `install/anacrontab.example` into `/etc/anacrontab`, then reload or restart the Anacron service if required: `systemctl status anacron.timer`.
 
 ## 5. Enable anacron on battery (optional)
 
@@ -60,6 +60,8 @@ sudo systemctl restart anacron.timer
 sudo /usr/local/bin/daily-wallpaper-anacron
 gsettings get org.gnome.desktop.background picture-uri
 gsettings get org.gnome.desktop.background picture-uri-dark
+journalctl -u anacron.service --since today | grep daily-wallpaper
+
 ```
 
 ## Troubleshooting
