@@ -75,3 +75,19 @@ If the wallpaper does not change automatically, verify that:
    rm ~/.local/share/daily-wallpaper/wallpaper-history.log
    rm ~/.local/share/daily-wallpaper/cycle-number.txt
    ```
+
+### Removing the installation
+
+To completely remove the installed components, run:
+
+```bash
+sudo rm /usr/local/bin/daily-wallpaper-anacron
+sudo sed -i '/daily-wallpaper/d' /etc/anacrontab
+sudo rm -rf /etc/systemd/system/anacron.service.d
+sudo systemctl daemon-reload
+   ```
+
+```text
+NB! This does not remove the wallpaper history stored in
+~/.local/share/daily-wallpaper/.
+```
