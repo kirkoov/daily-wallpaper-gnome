@@ -36,7 +36,7 @@ Edit `daily-wallpaper.sh` and set:
 
 ## 4. Install the anacron job
 
-Copy the `daily-wallpaper` job from `install/anacrontab.example` into `/etc/anacrontab`, then reload or restart the Anacron service if required: `systemctl status anacron.timer`.
+Copy the `daily-wallpaper` job from `install/anacrontab.example` into `/etc/anacrontab`.
 
 ## 5. Enable anacron on battery (optional)
 
@@ -69,4 +69,9 @@ If the wallpaper does not change automatically, verify that:
 - the wrapper script points to the correct location of `daily-wallpaper.sh`
 - `DISPLAY` and `DBUS_SESSION_BUS_ADDRESS` are correctly configured
 - the scripts are executable (`chmod +x`)
-- to reset everything and start the uniqueness cycle from scratch, run: `rm ~/.local/share/daily-wallpaper/wallpaper-history.log` and `rm ~/.local/share/daily-wallpaper/cycle-number.txt`
+- to reset everything and start the uniqueness cycle from scratch, run:
+
+   ```bash
+   rm ~/.local/share/daily-wallpaper/wallpaper-history.log
+   rm ~/.local/share/daily-wallpaper/cycle-number.txt
+   ```
