@@ -17,16 +17,12 @@
 
 ## 2. Install the scripts
 
-- copy `daily-wallpaper.sh` to a convenient location, for example `~/my_sh_scripts/`
-
-- copy `daily-wallpaper-anacron` to `/usr/local/bin/`
-
-- if you choose a different location, edit `daily-wallpaper-anacron` and update the path to `daily-wallpaper.sh`
+- copy `daily-wallpaper.sh` and `daily-wallpaper-anacron` to `/usr/local/bin/`
 
 - and make both scripts executable:
 
    ```bash
-   chmod +x ~/my_sh_scripts/daily-wallpaper.sh
+   sudo chmod +x /usr/local/bin/daily-wallpaper.sh
    sudo chmod +x /usr/local/bin/daily-wallpaper-anacron
    ```
 
