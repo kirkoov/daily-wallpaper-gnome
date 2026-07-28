@@ -1,7 +1,4 @@
 #!/usr/bin/env bash
 
-export DISPLAY=:0
-DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u)/bus"
-export DBUS_SESSION_BUS_ADDRESS
-
-sudo -H -u "$SUDO_USER" daily-wallpaper.sh
+# Replace "username" with your Linux one
+sudo -H -u username /usr/local/bin/daily-wallpaper.sh

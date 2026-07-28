@@ -17,7 +17,11 @@
 
 ## 2. Install the scripts
 
-- Copy `daily-wallpaper.sh` and `daily-wallpaper-anacron` to `/usr/local/bin/`
+- Copy `daily-wallpaper.sh` and `daily-wallpaper-anacron` to `/usr/local/bin/`:
+
+```bash
+sudo cp daily-wallpaper.sh daily-wallpaper-anacron /usr/local/bin/
+```
 
 - and make both scripts executable:
 
@@ -49,7 +53,7 @@ Create the override directory:
    sudo cp install/on-ac.conf /etc/systemd/system/anacron.service.d/
 ```
 
-Then
+Then reload systemd and restart the timer:
 
 ```bash
 sudo systemctl daemon-reload
