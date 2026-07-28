@@ -17,32 +17,29 @@
 
 ## 2. Install the scripts
 
-- Copy `daily-wallpaper.sh` and `daily-wallpaper-anacron` to `/usr/local/bin/`:
+Before installing:
+
+- edit `daily-wallpaper.sh` and set `WALLPAPER_DIR`
+- edit `daily-wallpaper-anacron` and replace `username` with your Linux username
+
+Then copy both scripts:
 
 ```bash
 sudo cp daily-wallpaper.sh daily-wallpaper-anacron /usr/local/bin/
 ```
 
-- and make both scripts executable:
+Make them executable:
 
-   ```bash
-   sudo chmod +x /usr/local/bin/daily-wallpaper.sh
-   sudo chmod +x /usr/local/bin/daily-wallpaper-anacron
-   ```
+```bash
+sudo chmod +x /usr/local/bin/daily-wallpaper.sh
+sudo chmod +x /usr/local/bin/daily-wallpaper-anacron
+```
 
-## 3. Configure the wallpaper directory
-
-Edit `/usr/local/bin/daily-wallpaper.sh` and set the wallpaper directory:
-
-   ```bash
-   WALLPAPER_DIR="$HOME/Pictures/DesktopBackgrounds/"
-   ```
-
-## 4. Install the anacron job
+## 3. Install the anacron job
 
 Copy the contents of `install/anacrontab.example` into `/etc/anacrontab`.
 
-## 5. Enable anacron on battery (optional)
+## 4. Enable anacron on battery (optional)
 
 On laptops, anacron does not run on battery by default.
 
@@ -60,18 +57,27 @@ sudo systemctl daemon-reload
 sudo systemctl restart anacron.timer
 ```
 
-## 6. Test the installation
+## 5. Test the installation
 
 Verify the script:
 
 ```bash
 sudo /usr/local/bin/daily-wallpaper-anacron
+
 gsettings get org.gnome.desktop.background picture-uri
 gsettings get org.gnome.desktop.background picture-uri-dark
-
 ```
 
+> **Note**
+> Running `daily-wallpaper-anacron` manually marks the Anacron job as executed for the current day. Consequently, Anacron will not run it again until the next scheduled day.
+
 Verify that Anacron is running correctly: `journalctl -u anacron.service -n 20` or `journalctl -u anacron.service --since today | grep daily-wallpaper`
+
+Verify that the `ConditionACPower=` override appears at the end of the output:
+
+```bash
+systemctl cat anacron.service
+```
 
 ## Troubleshooting
 
@@ -80,7 +86,7 @@ If the wallpaper does not change automatically, verify that:
 - the wallpaper directory exists and contains supported images
 - `anacron` is installed and enabled
 - the wrapper script points to the correct location of `daily-wallpaper.sh`
-- `DISPLAY` and `DBUS_SESSION_BUS_ADDRESS` are correctly configured
+- `DISPLAY` and `DBUS_SESSION_BUS_ADDRESS` are set correctly for your GNOME session if you customised the scripts
 - both scripts are executable (`chmod +x /usr/local/bin/daily-wallpaper*`)
 - to reset everything and start the uniqueness cycle from scratch, run:
 
@@ -100,4 +106,4 @@ sudo rm -rf /etc/systemd/system/anacron.service.d
 sudo systemctl daemon-reload
    ```
 
-`NB! This does not remove the wallpaper history stored in ~/.local/share/daily-wallpaper/.`
+`Note: This does not remove the wallpaper history stored in ~/.local/share/daily-wallpaper/.`

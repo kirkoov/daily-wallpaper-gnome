@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-WALLPAPER_DIR="$HOME/Pictures/DesktopBackgrounds/"
+WALLPAPER_DIR="$HOME/Pictures/DesktopBackgrounds/" # Change the img folder path as necessary
 STATE_DIR="$HOME/.local/share/daily-wallpaper"
 CURRENT_FILE="$STATE_DIR/current-wallpaper.txt"
 LOG_FILE="$STATE_DIR/wallpaper-history.log"
