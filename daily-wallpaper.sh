@@ -39,7 +39,7 @@ fi
 # Get already-shown images for the current cycle
 SHOWN_THIS_CYCLE="$(
 	if [ -f "$LOG_FILE" ]; then
-		grep " | cycle=$CYCLE | " "$LOG_FILE" |
+		grep " | cycle=$CYCLE | OK | " "$LOG_FILE" |
 			cut -d'|' -f5 |
 			sed 's/^ *//;s/ *$//' || true
 	fi
