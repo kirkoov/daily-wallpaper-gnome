@@ -11,6 +11,13 @@
 ## 1. Clone the repository
 
 ```bash
+git clone https://github.com/kirkoov/daily-wallpaper-gnome.git
+cd daily-wallpaper-gnome
+```
+
+Alternatively, if you prefer SSH and have GitHub SSH access configured:
+
+```bash
 git clone git@github.com:kirkoov/daily-wallpaper-gnome.git
 cd daily-wallpaper-gnome
 ```
