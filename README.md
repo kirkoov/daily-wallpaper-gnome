@@ -20,7 +20,7 @@ A lightweight Bash utility that automatically changes the GNOME desktop wallpape
 - GNOME
 - anacron
 - gsettings
-- notify-send
+- notify-send (optional, for desktop notifications)
 
 ## Installation
 

@@ -6,7 +6,7 @@
 - GNOME desktop environment
 - anacron
 - gsettings
-- notify-send
+- notify-send (optional, for desktop notifications)
 
 ## 1. Clone the repository
 
