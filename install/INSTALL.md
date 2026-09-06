@@ -100,9 +100,11 @@ If the wallpaper does not change automatically, verify that:
 To completely remove the installed components, run:
 
 ```bash
-sudo rm /usr/local/bin/daily-wallpaper-anacron
+sudo rm -f /usr/local/bin/daily-wallpaper.sh
+sudo rm -f /usr/local/bin/daily-wallpaper-anacron
 sudo sed -i '/daily-wallpaper/d' /etc/anacrontab
-sudo rm -rf /etc/systemd/system/anacron.service.d
+sudo rm -f /etc/systemd/system/anacron.service.d/on-ac.conf
+sudo rm -f /var/spool/anacron/daily-wallpaper
 sudo systemctl daemon-reload
 ```
 
