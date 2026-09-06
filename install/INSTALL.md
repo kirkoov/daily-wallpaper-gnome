@@ -4,6 +4,7 @@
 
 - Ubuntu 22.04 or later
 - GNOME desktop environment
+- git
 - anacron
 - gsettings
 - notify-send (optional, for desktop notifications)
