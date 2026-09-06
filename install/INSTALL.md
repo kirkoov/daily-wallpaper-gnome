@@ -10,10 +10,10 @@
 
 ## 1. Clone the repository
 
-   ```bash
-   git clone git@github.com:kirkoov/daily-wallpaper-gnome.git
-   cd daily-wallpaper-gnome
-   ```
+```bash
+git clone git@github.com:kirkoov/daily-wallpaper-gnome.git
+cd daily-wallpaper-gnome
+```
 
 ## 2. Install the scripts
 
@@ -68,8 +68,8 @@ gsettings get org.gnome.desktop.background picture-uri
 gsettings get org.gnome.desktop.background picture-uri-dark
 ```
 
-> **Note**
-> Running `daily-wallpaper-anacron` manually marks the Anacron job as executed for the current day. Consequently, Anacron will not run it again until the next scheduled day.
+> **Note:**
+> Running `daily-wallpaper-anacron` manually tests the wrapper and wallpaper script only. It does not mark the Anacron job as executed for the current day.
 
 Verify that Anacron is running correctly: `journalctl -u anacron.service -n 20` or `journalctl -u anacron.service --since today | grep daily-wallpaper`
 
@@ -90,10 +90,10 @@ If the wallpaper does not change automatically, verify that:
 - both scripts are executable (`chmod +x /usr/local/bin/daily-wallpaper*`)
 - to reset everything and start the uniqueness cycle from scratch, run:
 
-   ```bash
-   rm ~/.local/share/daily-wallpaper/wallpaper-history.log
-   rm ~/.local/share/daily-wallpaper/cycle-number.txt
-   ```
+  ```bash
+  rm ~/.local/share/daily-wallpaper/wallpaper-history.log
+  rm ~/.local/share/daily-wallpaper/cycle-number.txt
+  ```
 
 ### Removing the installation
 
@@ -104,6 +104,6 @@ sudo rm /usr/local/bin/daily-wallpaper-anacron
 sudo sed -i '/daily-wallpaper/d' /etc/anacrontab
 sudo rm -rf /etc/systemd/system/anacron.service.d
 sudo systemctl daemon-reload
-   ```
+```
 
 `Note: This does not remove the wallpaper history stored in ~/.local/share/daily-wallpaper/.`
