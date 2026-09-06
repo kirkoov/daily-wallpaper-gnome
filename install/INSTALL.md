@@ -49,7 +49,7 @@ Copy the contents of `install/anacrontab.example` into `/etc/anacrontab`.
 
 ## 4. Enable anacron on battery (optional)
 
-On laptops, anacron does not run on battery by default.
+On Ubuntu 22.04, the packaged `anacron.service` includes `ConditionACPower=true`, so Anacron does not run while the laptop is on battery unless this condition is overridden.
 
 Create the override directory:
 
