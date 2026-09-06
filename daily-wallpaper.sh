@@ -9,7 +9,7 @@ CYCLE_FILE="$STATE_DIR/cycle-number.txt"
 
 mkdir -p "$STATE_DIR"
 
-# Needed when run from cron under GNOME
+# Needed when run from Anacron under GNOME
 export DISPLAY="${DISPLAY:-:0}"
 DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u)/bus"
 export DBUS_SESSION_BUS_ADDRESS
