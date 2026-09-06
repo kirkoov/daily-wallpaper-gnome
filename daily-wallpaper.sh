@@ -71,8 +71,8 @@ gsettings set org.gnome.desktop.background picture-uri "$URI"
 gsettings set org.gnome.desktop.background picture-uri-dark "$URI"
 
 # Verify both settings were applied
-CURRENT_URI="$(gsettings get org.gnome.desktop.background picture-uri | tr -d "'")"
-CURRENT_URI_DARK="$(gsettings get org.gnome.desktop.background picture-uri-dark | tr -d "'")"
+CURRENT_URI="$(gsettings get org.gnome.desktop.background picture-uri | sed -E "s/^(['\"])(.*)\1$/\2/")"
+CURRENT_URI_DARK="$(gsettings get org.gnome.desktop.background picture-uri-dark | sed -E "s/^(['\"])(.*)\1$/\2/")"
 
 if [ "$CURRENT_URI" != "$URI" ] || [ "$CURRENT_URI_DARK" != "$URI" ]; then
 	echo "$(date '+%F %T') | cycle=$CYCLE | FAILED | $BASENAME | $IMAGE" >>"$LOG_FILE"
