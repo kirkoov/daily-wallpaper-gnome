@@ -10,7 +10,7 @@ A lightweight Bash utility that automatically changes the GNOME desktop wallpape
 - designed to run daily via anacron
 - survives reboots and missed boot times
 - updates both GNOME Light and Dark wallpaper settings
-- verifies that the wallpaper was successfully applied
+- verifies that both GNOME wallpaper settings contain the requested image URI
 - displays a desktop notification with the image name
 - supports JPG, JPEG, PNG and WebP images
 
