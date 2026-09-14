@@ -2,11 +2,13 @@
 
 ## Prerequisites
 
-- Ubuntu 22.04 or later
+- Ubuntu 22.04
 - GNOME desktop environment
+- Bash
 - git
 - anacron
 - gsettings
+- gio (required only for the `reject` command)
 - notify-send (optional, for desktop notifications)
 
 ## 1. Clone the repository
@@ -49,7 +51,7 @@ Copy the contents of `install/anacrontab.example` into `/etc/anacrontab`.
 
 ## 4. Enable anacron on battery (optional)
 
-On Ubuntu 22.04, the packaged `anacron.service` includes `ConditionACPower=true`, so Anacron does not run while the laptop is on battery unless this condition is overridden.
+On Ubuntu 22.04, the packaged `anacron.service` includes `ConditionACPower=true`, so anacron jobs do not run while the laptop is on battery unless this condition is overridden.
 
 Create the override directory:
 
@@ -77,15 +79,19 @@ gsettings get org.gnome.desktop.background picture-uri-dark
 ```
 
 > **Note:**
-> Running `daily-wallpaper-anacron` manually tests the wrapper and wallpaper script only. It does not mark the Anacron job as executed for the current day.
+> Running `daily-wallpaper-anacron` manually tests the wrapper and wallpaper script only. It does not mark the anacron job as executed for the current day.
 
-Verify that Anacron is running correctly: `journalctl -u anacron.service -n 20` or `journalctl -u anacron.service --since today | grep daily-wallpaper`
+Verify that the anacron is running correctly: `journalctl -u anacron.service -n 20` or `journalctl -u anacron.service --since today | grep daily-wallpaper`
 
-Verify that the `ConditionACPower=` override appears at the end of the output:
+If you enabled anacron on battery in step 4, verify that the `ConditionACPower=` override appears at the end of the output:
 
 ```bash
 systemctl cat anacron.service
 ```
+
+If these checks pass, the installation is complete.
+
+See the main [README](../README.md#usage) for normal use, including changing the wallpaper immediately, rejecting the current wallpaper, optional keyboard shortcuts and custom scheduling.
 
 ## Troubleshooting
 
@@ -94,13 +100,12 @@ If the wallpaper does not change automatically, verify that:
 - the wallpaper directory exists and contains supported images
 - `anacron` is installed and enabled
 - the wrapper script points to the correct location of `daily-wallpaper.sh`
-- `DISPLAY` and `DBUS_SESSION_BUS_ADDRESS` are set correctly for your GNOME session if you customised the scripts
 - both scripts are executable (`chmod +x /usr/local/bin/daily-wallpaper*`)
-- to reset everything and start the uniqueness cycle from scratch, run:
+- to reset the selection history and start the uniqueness cycle from scratch, run:
 
   ```bash
-  rm ~/.local/share/daily-wallpaper/wallpaper-history.log
-  rm ~/.local/share/daily-wallpaper/cycle-number.txt
+  rm -f ~/.local/share/daily-wallpaper/wallpaper-history.log
+  rm -f ~/.local/share/daily-wallpaper/cycle-number.txt
   ```
 
 ### Removing the installation
@@ -116,4 +121,4 @@ sudo rm -f /var/spool/anacron/daily-wallpaper
 sudo systemctl daemon-reload
 ```
 
-`Note: This does not remove the wallpaper history stored in ~/.local/share/daily-wallpaper/.`
+> **Note:** This does not remove the runtime state stored in `~/.local/share/daily-wallpaper/`.
