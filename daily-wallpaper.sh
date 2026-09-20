@@ -114,6 +114,60 @@ apply_wallpaper() {
 	fi
 }
 
+trash_image() {
+	local image="$1"
+	local image_dir
+	local basename
+	local name_max
+	local trashinfo_bytes
+	local max_trash_name_bytes
+	local basename_bytes
+	local ext
+	local stem
+	local short_stem
+	local shortened_image
+
+	image_dir="${image%/*}"
+	basename="${image##*/}"
+
+	name_max="$(getconf NAME_MAX "$image_dir")"
+	trashinfo_bytes="$(printf '%s' '.trashinfo' | wc -c)"
+	max_trash_name_bytes=$((name_max - trashinfo_bytes))
+	basename_bytes="$(printf '%s' "$basename" | wc -c)"
+
+	if [ "$basename_bytes" -le "$max_trash_name_bytes" ]; then
+		gio trash "$image"
+		return
+	fi
+
+	ext=".${basename##*.}"
+	stem="${basename%.*}"
+	short_stem="$stem"
+
+	while [ "$(printf '%s' "${short_stem}${ext}" | wc -c)" -gt "$max_trash_name_bytes" ]; do
+		short_stem="${short_stem%?}"
+	done
+
+	shortened_image="$image_dir/${short_stem}${ext}"
+
+	if [ -e "$shortened_image" ]; then
+		echo "Cannot shorten filename for trashing because the target already exists: $shortened_image" >&2
+		return 1
+	fi
+
+	mv -- "$image" "$shortened_image"
+
+	if gio trash "$shortened_image"; then
+		return 0
+	fi
+
+	if ! mv -- "$shortened_image" "$image"; then
+		echo "Failed to restore original filename after trashing failed: $image" >&2
+	fi
+
+	return 1
+}
+
 reject_current_wallpaper() {
 	if ! command -v gio >/dev/null 2>&1; then
 		echo "gio is required to reject wallpapers." >&2
@@ -143,7 +197,7 @@ reject_current_wallpaper() {
 		exit 1
 	fi
 
-	gio trash "$CURRENT_IMAGE"
+	trash_image "$CURRENT_IMAGE"
 
 	if [ -f "$LOG_FILE" ]; then
 		TMP_LOG="$(mktemp "$STATE_DIR/wallpaper-history.XXXXXX")"
