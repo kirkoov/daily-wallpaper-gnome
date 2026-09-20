@@ -197,7 +197,13 @@ reject_current_wallpaper() {
 		exit 1
 	fi
 
-	trash_image "$CURRENT_IMAGE"
+	if ! trash_image "$CURRENT_IMAGE"; then
+		if command -v notify-send >/dev/null 2>&1; then
+			notify-send "Wallpaper rejection failed" \
+				"Could not move the current wallpaper to the Rubbish Bin." || true
+		fi
+		exit 1
+	fi
 
 	if [ -f "$LOG_FILE" ]; then
 		TMP_LOG="$(mktemp "$STATE_DIR/wallpaper-history.XXXXXX")"
