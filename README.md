@@ -11,7 +11,7 @@ A lightweight Bash utility that automatically changes the GNOME desktop wallpape
 - uses GNOME's `scaled` wallpaper mode by default for proportional image fitting
 - lets the user reject the current wallpaper by moving it to the Rubbish Bin, removing it from wallpaper history, and immediately selecting a replacement
 - applies the wallpaper to both GNOME Light and Dark settings and verifies both URI values
-- optionally displays a desktop notification, splitting recognised creator/title filename patterns for better readability
+- optionally displays desktop notifications for wallpaper changes and rejection failures, splitting recognised creator/title filename patterns for better readability
 - performs one wallpaper change per invocation and exits; no `daily-wallpaper` process remains resident between changes
 
 ## Requirements
@@ -47,6 +47,8 @@ To reject and trash the current wallpaper:
 ```
 
 The `reject` command moves the current image to the Rubbish Bin, removes its records from the utility's wallpaper history, and immediately selects and applies a replacement.
+
+> If a filename is too long for the Rubbish Bin metadata, it is shortened only as much as necessary before trashing while preserving the file extension. A file restored from the Rubbish Bin will retain that shortened name.
 
 ### Optional keyboard shortcuts
 
